@@ -42,7 +42,7 @@ def waving_bmi():
 
 
 window = Tk()
-window.title("Генератор голосов")
+window.title("Голосилка")
 window.geometry('800x600+10+10')
 
 frame = Frame(
