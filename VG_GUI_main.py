@@ -2,10 +2,10 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import torch
+import os
 from pprint import pprint
 from omegaconf import OmegaConf
 from IPython.display import Audio, display
-
 
 
 def select():
@@ -14,20 +14,43 @@ def select():
     select_lb.config(text=f"Выбран {balabol}")
 
 def waving_bmi():
-    audio = model.apply_tts(text=text_tf.get(),
+   ssml_1 = """
+              <speak>
+              <p>
+                  <break time="500ms"/>
+
+            """
+   ssml_2 = """
+
+              </p>
+              </speak>
+            """
+   ssml = ssml_1 + text_tf.get() + ssml_2
+   audio = model.apply_tts(ssml_text = ssml,
                         speaker=voice.get(),
                         sample_rate=sample_rate,
                         put_accent=put_accent,
                         put_yo=put_yo)
-    display(Audio(audio, rate=sample_rate))
+   display(Audio(audio, rate=sample_rate))
+    
 
-    audio_paths = model.save_wav(text=text_tf.get(),
+   audio_paths = model.save_wav(ssml_text = ssml,
                              speaker=voice.get(),
                              sample_rate=sample_rate,
                              put_accent=put_accent,
                              put_yo=put_yo)
-    select_lb.config(text=f"Готово! Выбран {balabol}")
-    
+   count = 0
+   f_exist = True
+   while f_exist:
+      count = count + 1
+      file_name = f"wav/{voice.get()}_{str(count)}.wav"
+      if not os.path.exists(file_name):
+           f_exist = False
+                 
+
+   os.rename("test.wav", file_name)
+   select_lb.config(text=f"Готово! Выбран {balabol}")
+
 
 
 
@@ -117,6 +140,8 @@ model, example_text = torch.hub.load(repo_or_dir='snakers4/silero-models',
 model.to(device)  # gpu or cpu
 
 model.speakers
+
+
 
 sample_rate = 48000
 #balabol = voice.get()
