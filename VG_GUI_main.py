@@ -58,9 +58,11 @@ text_lb = Label(
 text_lb.grid(row=1, column=1)
 
 text_tf = Entry(
-   frame, #Используем нашу заготовку с настроенными отступами.
+   frame #Используем нашу заготовку с настроенными отступами.
 )
 text_tf.grid(row=1, column=2)
+text_tf.insert(0, "Привет, нахуй!")
+
 
 wav_btn = Button(
    frame, #Заготовка с настроенными отступами.
