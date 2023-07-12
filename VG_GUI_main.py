@@ -84,19 +84,19 @@ header = Label(frame, textvariable=voice)
 header.pack(**position)
 
 
-voice_1_btn = Radiobutton(frame, text=voice_1, value=voice_1, variable=voice, command=select)
+voice_1_btn = Radiobutton(frame, text=f"{voice_1} (мужской)", value=voice_1, variable=voice, command=select)
 voice_1_btn.pack(**position)
 
-voice_2_btn = Radiobutton(frame, text=voice_2, value=voice_2, variable=voice, command=select)
+voice_2_btn = Radiobutton(frame, text=f"{voice_2} (женский)", value=voice_2, variable=voice, command=select)
 voice_2_btn.pack(**position)
 
-voice_3_btn = Radiobutton(frame, text=voice_3, value=voice_3, variable=voice, command=select)
+voice_3_btn = Radiobutton(frame, text=f"{voice_3} (женский)", value=voice_3, variable=voice, command=select)
 voice_3_btn.pack(**position)
 
-voice_4_btn = Radiobutton(frame, text=voice_4, value=voice_4, variable=voice, command=select)
+voice_4_btn = Radiobutton(frame, text=f"{voice_4} (женский)", value=voice_4, variable=voice, command=select)
 voice_4_btn.pack(**position)
 
-voice_5_btn = Radiobutton(frame, text=voice_5, value=voice_5, variable=voice, command=select)
+voice_5_btn = Radiobutton(frame, text=f"{voice_4} (мужской)", value=voice_5, variable=voice, command=select)
 voice_5_btn.pack(**position)
 
 balabol = voice.get()
