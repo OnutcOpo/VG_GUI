@@ -6,6 +6,105 @@ from pprint import pprint
 from omegaconf import OmegaConf
 from IPython.display import Audio, display
 
+
+
+def select():
+    header.config(text=f"Выбран {voice.get()}")
+    balabol=voice.get() 
+    select_lb.config(text=f"Выбран {balabol}")
+
+def waving_bmi():
+    audio = model.apply_tts(text=text_tf.get(),
+                        speaker=voice.get(),
+                        sample_rate=sample_rate,
+                        put_accent=put_accent,
+                        put_yo=put_yo)
+    display(Audio(audio, rate=sample_rate))
+
+    audio_paths = model.save_wav(text=text_tf.get(),
+                             speaker=voice.get(),
+                             sample_rate=sample_rate,
+                             put_accent=put_accent,
+                             put_yo=put_yo)
+    select_lb.config(text=f"Готово! Выбран {balabol}")
+    
+
+
+
+
+
+window = Tk()
+window.title("Голосилка")
+window.geometry('1024x400+10+10')
+#выбор голоса
+frame = LabelFrame(
+   window, #Обязательный параметр, который указывает окно для размещения Frame.
+   width=500,
+   text="Озвучивает...",
+   padx = 10, #Задаём отступ по горизонтали.
+   pady = 10, #Задаём отступ по вертикали.
+   borderwidth=1
+)
+frame.place(x=10, y=50) #Не забываем позиционировать виджет в окне. Здесь используется метод pack. С помощью свойства expand=True указываем, что Frame заполняет весь контейнер, созданный для него.
+
+position = {"padx":6, "pady":6, "anchor":NW}
+ 
+voice_1 = "aidar"
+voice_2 = "baya"
+voice_3 = "kseniya"
+voice_4 = "xenia"
+voice_5 = "eugene"
+
+voice = StringVar(value=voice_1)    # по умолчанию будет выбран элемент с value=voice_1
+ 
+header = Label(frame, textvariable=voice)
+header.pack(**position)
+
+
+voice_1_btn = Radiobutton(frame, text=voice_1, value=voice_1, variable=voice, command=select)
+voice_1_btn.pack(**position)
+
+voice_2_btn = Radiobutton(frame, text=voice_2, value=voice_2, variable=voice, command=select)
+voice_2_btn.pack(**position)
+
+voice_3_btn = Radiobutton(frame, text=voice_3, value=voice_3, variable=voice, command=select)
+voice_3_btn.pack(**position)
+
+voice_4_btn = Radiobutton(frame, text=voice_4, value=voice_4, variable=voice, command=select)
+voice_4_btn.pack(**position)
+
+voice_5_btn = Radiobutton(frame, text=voice_5, value=voice_5, variable=voice, command=select)
+voice_5_btn.pack(**position)
+
+balabol = voice.get()
+
+text_lb = Label(
+   window,
+   text="Текст для озвучивания  "
+)
+text_lb.place(x=10, y=10)
+
+text_tf = Entry(
+   window, #Используем нашу заготовку с настроенными отступами.
+   width=120
+)
+text_tf.insert(0, "Привет, народ!")
+text_tf.place(x=150, y=10)
+
+wav_btn = Button(
+   window, #Заготовка с настроенными отступами.
+   text='Озвучить быстро!', #Надпись на кнопке.
+   command=waving_bmi #Позволяет запустить событие с функцией при нажатии на кнопку.
+)
+wav_btn.place(x=10, y=350)
+
+select_lb = Label(
+   window,
+   text=f"Выбран {voice.get()}"
+)
+select_lb.place(x=150, y=350)
+
+
 local_file = 'model.pt'
 language = 'ru'
 model_id = 'v3_1_ru'
@@ -20,57 +119,9 @@ model.to(device)  # gpu or cpu
 model.speakers
 
 sample_rate = 48000
-speaker = 'xenia'
+#balabol = voice.get()
 put_accent=True
 put_yo=True
-
-def waving_bmi():
-    audio = model.apply_tts(text=text_tf.get(),
-                        speaker=speaker,
-                        sample_rate=sample_rate,
-                        put_accent=put_accent,
-                        put_yo=put_yo)
-    display(Audio(audio, rate=sample_rate))
-
-    audio_paths = model.save_wav(text=text_tf.get(),
-                             speaker=speaker,
-                             sample_rate=sample_rate,
-                             put_accent=put_accent,
-                             put_yo=put_yo)
-
-
-
-
-window = Tk()
-window.title("Голосилка")
-window.geometry('800x600+10+10')
-
-frame = Frame(
-   window, #Обязательный параметр, который указывает окно для размещения Frame.
-   padx = 10, #Задаём отступ по горизонтали.
-   pady = 10 #Задаём отступ по вертикали.
-)
-frame.pack(expand=True) #Не забываем позиционировать виджет в окне. Здесь используется метод pack. С помощью свойства expand=True указываем, что Frame заполняет весь контейнер, созданный для него.
-text_lb = Label(
-   frame,
-   text="Текст для озвучивания  "
-)
-text_lb.grid(row=1, column=1)
-
-text_tf = Entry(
-   frame #Используем нашу заготовку с настроенными отступами.
-)
-text_tf.grid(row=1, column=2)
-text_tf.insert(0, "Привет, нахуй!")
-
-
-wav_btn = Button(
-   frame, #Заготовка с настроенными отступами.
-   text='Озвучить нахуй!', #Надпись на кнопке.
-   command=waving_bmi #Позволяет запустить событие с функцией при нажатии на кнопку.
-)
-wav_btn.grid(row=5, column=1) #Размещаем кнопку в ячейке, расположенной ниже, чем наши надписи, но во втором столбце, то есть под ячейками для ввода информации.
-
 
 
 window.mainloop()
