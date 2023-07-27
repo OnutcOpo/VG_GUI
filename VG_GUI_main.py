@@ -96,7 +96,7 @@ voice_3_btn.pack(**position)
 voice_4_btn = Radiobutton(frame, text=f"{voice_4} (женский)", value=voice_4, variable=voice, command=select)
 voice_4_btn.pack(**position)
 
-voice_5_btn = Radiobutton(frame, text=f"{voice_4} (мужской)", value=voice_5, variable=voice, command=select)
+voice_5_btn = Radiobutton(frame, text=f"{voice_5} (мужской)", value=voice_5, variable=voice, command=select)
 voice_5_btn.pack(**position)
 
 balabol = voice.get()
