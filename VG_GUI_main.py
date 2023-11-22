@@ -16,13 +16,11 @@ def select():
 def waving_bmi():
    ssml_1 = """
               <speak>
-              <p>
-                  <break time="500ms"/>
+                  <break time="400ms"/>
 
             """
    ssml_2 = """
-
-              </p>
+                  <break time="400ms"/>
               </speak>
             """
    ssml = ssml_1 + text_tf.get() + ssml_2
